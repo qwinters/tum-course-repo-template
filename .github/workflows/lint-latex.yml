@@ -1,0 +1,14 @@
+name: Lint all LaTeX files
+on:
+  push:
+    branches: [ main, gh-pages ]
+  pull_request:
+    branches: [ main, gh-pages ]
+jobs:
+  build:
+    name: Lint all LaTeX files
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: LaTeX linter (chktex)
+        uses: j2kun/chktex-action@main

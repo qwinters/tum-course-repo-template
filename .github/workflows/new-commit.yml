@@ -1,0 +1,37 @@
+name: Update lecture notes on website
+on:
+  push:
+    branches: [main]
+jobs:
+  build:
+    name: Update lecture notes on website
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Copy lectures to gh-pages on main branch 
+        id: git_copy_lectures
+        shell: bash
+        run: |
+            git config --local user.name "github-action"
+            cd lectures 
+            cp *.md ../gh-pages/_posts
+            cp *.pdf ../gh-pages/assets/files/raw-notes
+            cd ..
+            if [[ $(git status --porcelain | wc -l) -eq "0" ]] ; then 
+              echo "Nothing to commit"
+            else
+              git add -f gh-pages/_posts
+              git add -f gh-pages/assets/files/raw-notes
+              git commit -m "chore(gh-pages): Updating posts"
+              git push
+            fi 
+      - name: Deploy notes to github pages
+        id: deploy_gh_pages
+        if: success()
+        uses: JamesIves/github-pages-deploy-action@4.1.1
+        with: 
+          branch: website
+          folder: gh-pages
