@@ -7,6 +7,13 @@
 %Standard Math tools
 \usepackage{amssymb, mathtools, enumitem} 
 
+%Better / easier to remember list environments
+\newenvironment{romlist}{\begin{enumerate}[label={(\roman*)}]}{\end{enumerate}}
+\newenvironment{numlist}{\begin{enumerate}[label={(\arabic*)}]}{\end{enumerate}}
+\newenvironment{abclist}{\begin{enumerate}[label={(\alph*)}]}{\end{enumerate}}
+\newenvironment{ROMlist}{\begin{enumerate}[label={(\Roman*)}]}{\end{enumerate}}
+\newenvironment{ABClist}{\begin{enumerate}[label={(\Alph*)}]}{\end{enumerate}}
+
 %Fancy Fonts
 % Regular useful fonts
 \usepackage{mathrsfs}
@@ -25,6 +32,13 @@
 
 %Bibliography setup (with BibLaTeX + Biber)
 \usepackage{hyperref}
+\hypersetup{
+    linktoc=all,
+    colorlinks=true,
+    linkcolor=blue!35!black, 
+    anchorcolor=blue!35!black, 
+    citecolor=blue!45!black,
+    urlcolor=blue!65!black}
 \usepackage[nameinlink]{cleveref}
 \usepackage[style=numeric]{biblatex}
 
@@ -95,3 +109,5 @@
 \end{flushright}
 \endtrivlist\@endpefalse}
 \makeatother
+\newenvironment{solution}{\begin{proof}[Solution]}{\end{proof}}
+\newenvironment{outline}{\begin{proof}[Outline of the Proof]\begin{numlist}}{\end{numlist}\end{proof}}

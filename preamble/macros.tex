@@ -1,3 +1,23 @@
+%Swap phi -> varphi and epsilon -> varepsilon
+\newcommand{\oldepsilon}{\epsilon}
+\renewcommand{\epsilon}{\varepsilon}
+\newcommand{\oldphi}{\phi}
+\renewcommand{\phi}{\varphi}
+
+% Default macros for working with math
+% Standard commands for Mathbb letters
+\newcommand{\NN}{\mathbb{N}}
+\newcommand{\ZZ}{\mathbb{Z}}
+\newcommand{\ZZps}{\mathbb{Z}_{>0}}	 % ZZps = Z (strictly) positive
+\newcommand{\ZZnn}{\mathbb{Z}_{\ge 0}}	 % ChkTeX 1 ZZnn = Z non-negative
+\newcommand{\QQ}{\mathbb{Q}}
+\newcommand{\RR}{\mathbb{R}}
+\newcommand{\RRps}{\mathbb{R}_{>0}}
+\newcommand{\RRnn}{\mathbb{R}_{\ge 0}}   % ChkTeX 1
+\newcommand{\CC}{\mathbb{C}}
+\newcommand{\Sn}{\mathbb{S}^{n-1}}
+\newcommand{\Sphere}[1]{\mathbb{S}^{#1}}
+
 % Standard commands for mathbb letters
 \newcommand{\Abb}{\mathbb{A}}
 \renewcommand{\Bbb}{\mathbb{B}}
@@ -191,6 +211,9 @@
 \newcommand{\Vol}{\operatorname{Vol}}
 \newcommand{\Proj}{\operatorname{Proj}}
 \newcommand{\Perim}{\operatorname{Perim}}
+\newcommand{\polar}{^{\circ}}
+\newcommand{\Frob}{\operatorname{Frob}}
+\newcommand{\HS}{\operatorname{HS}}
 \newcommand{\relintr}{\operatorname{rel.\,int.}}
 \newcommand{\relbd}{\operatorname{rel.\,bd.}}
 \newcommand{\relcl}{\operatorname{rel.\,cl.}}
@@ -203,6 +226,110 @@
 \newcommand{\essinf}{\operatorname{ess\,inf}}
 \newcommand{\supp}{\operatorname{supp}}
 \newcommand{\esssupp}{\operatorname{ess\,supp}}
+
+% Linear and Functional Analysis Macros
+\newcommand{\Id}{\operatorname{Id}}
+\newcommand{\TV}{\operatorname{TV}}
+\newcommand{\eigvals}{\operatorname{Eig.\,Vals.}}
+\newcommand{\eigvecs}{\operatorname{Eig.\,Vecs.}}
+\newcommand{\eigfuncs}{\operatorname{Eig.\,Funcs.}}
+\newcommand{\Grad}{\operatorname{grad}}
+\newcommand{\Div}{\operatorname{div}}
+\newcommand{\coker}{\operatorname{coker}}
+\newcommand{\codim}{\operatorname{codim}}
+\newcommand{\sa}{^{\mathsf{sa}}}
+\newcommand{\transpose}{^{\intercal}}
+\newcommand{\conjugate}{^{\mathsf{*}}}
+\newcommand{\adjoint}{^{\mathsf{*}}}
+\newcommand{\dual}{^{\mathsf{*}}}
+\newcommand{\oldstar}{\star}
+\renewcommand{\star}{^{\mathsf{*}}}
+\newcommand{\inverse}{^{-1}}
+\newcommand{\psinverse}{^{\dagger}}
+
+% Integral Macros
+\newcommand*{\dd}{\mathop{}\!\mathrm{d}}
+\newcommand*{\ds}{\dd s} % ChkTeX 1
+\newcommand*{\dt}{\dd t} % ChkTeX 1
+\newcommand*{\du}{\dd u} % ChkTeX 1
+\newcommand*{\dv}{\dd v} % ChkTeX 1
+\newcommand*{\dx}{\dd x} % ChkTeX 1
+\newcommand*{\dy}{\dd y} % ChkTeX 1
+\newcommand*{\dz}{\dd z} % ChkTeX 1
+\newcommand*{\dr}{\dd r} % ChkTeX 1
+\newcommand*{\df}{\dd f} % ChkTeX 1
+\newcommand*{\dg}{\dd g} % ChkTeX 1
+\newcommand*{\dh}{\dd h} % ChkTeX 1
+\newcommand*{\dF}{\dd F} % ChkTeX 1
+\newcommand*{\dG}{\dd G} % ChkTeX 1
+\newcommand*{\dH}{\dd H} % ChkTeX 1
+\newcommand*{\dw}{\dd \omega} % ChkTeX 1
+\newcommand*{\dth}{\dd \theta} % ChkTeX 1
+\newcommand*{\dphi}{\dd \phi} % ChkTeX 1
+\newcommand*{\dpsi}{\dd \psi} % ChkTeX 1
+\newcommand*{\dmu}{\dd \mu} % ChkTeX 1
+\newcommand*{\dmu}{\dd \nu} % ChkTeX 1
+\newcommand*{\dsigma}{\dd \sigma} % ChkTeX 1
+\newcommand*{\dlambda}{\dd \lambda} % ChkTeX 1
+\newcommand*{\mudw}{\mathop{}\!\mu(\mathrm{d}\omega)}
+\newcommand*{\mudx}{\mathop{}\!\mu(\mathrm{d}x)}
+\newcommand*{\mudy}{\mathop{}\!\mu(\mathrm{d}y)}
+\newcommand*{\mudz}{\mathop{}\!\mu(\mathrm{d}z)}
+\newcommand*{\nudw}{\mathop{}\!\nu(\mathrm{d}\omega)}
+\newcommand*{\nudx}{\mathop{}\!\nu(\mathrm{d}x)}
+\newcommand*{\nudy}{\mathop{}\!\nu(\mathrm{d}y)}
+\newcommand*{\nudz}{\mathop{}\!\nu(\mathrm{d}z)}
+\newcommand*{\lmdw}{\mathop{}\!\lambda(\mathrm{d}\omega)}
+\newcommand*{\lmdx}{\mathop{}\!\lambda(\mathrm{d}x)}
+\newcommand*{\lmdy}{\mathop{}\!\lambda(\mathrm{d}y)}
+\newcommand*{\lmdz}{\mathop{}\!\lambda(\mathrm{d}z)}
+\newcommand*{\gmdw}{\mathop{}\!\gamma(\mathrm{d}\omega)}
+\newcommand*{\gmdx}{\mathop{}\!\gamma(\mathrm{d}x)}
+\newcommand*{\gmdy}{\mathop{}\!\gamma(\mathrm{d}y)}
+\newcommand*{\gmdz}{\mathop{}\!\gamma(\mathrm{d}z)}
+\newcommand*{\prdw}{\mathop{}\!\Pr(\mathrm{d}\omega)}
+\newcommand*{\prdx}{\mathop{}\!\Pr(\mathrm{d}x)}
+\newcommand*{\prdy}{\mathop{}\!\Pr(\mathrm{d}y)}
+\newcommand*{\prdz}{\mathop{}\!\Pr(\mathrm{d}z)}
+\newcommand*{\sgdth}{\mathop{}\!\sigma(\mathrm{d}\theta)}
+\newcommand*{\Hdx}{\mathop{}\!\mathcal{H}(\mathrm{d}x)} % ChkTeX 36
+\newcommand*{\Hdy}{\mathop{}\!\mathcal{H}(\mathrm{d}y)} % ChkTeX 36
+\newcommand*{\Hdz}{\mathop{}\!\mathcal{H}(\mathrm{d}z)} % ChkTeX 36
+
+% Derivative Macros
+\newcommand*{\pd}{\partial}
+\newcommand*{\grad}{\nabla}
+\newcommand{\divisionsymbol}{\div}
+\renewcommand*{\div}{\nabla\cdot}
+\newcommand*{\curl}{\nabla\times}
+\newcommand*{\laplacian}{\nabla^2}
+\newcommand*{\DirD}{\mathbf{D}}
+\newcommand*{\hessian}{\mathbf{H}}
+\newcommand*{\jacobian}{\mathbf{J}}
+
+% Set Theory Macros
+\newcommand{\comp}{^{\mathsf{c}}}
+\newcommand{\compl}{^{\mathsf{c}}}
+\renewcommand{\complement}{^{\mathsf{c}}}
+\newcommand{\Event}[1]{\left\{ #1 \right\}}
+\newcommand{\Set}[2]{\left\{ #1 \;\middle\mid\; #2 \right\}}
+\newcommand{\card}{\operatorname{Card}}
+\newcommand{\Card}{\operatorname{Card}}
+\newcommand{\pset}[1]{2^{#1}}
+
+% Macros for Limit Shorthands
+\newcommand{\toUnif}{\xrightarrow{\text{unif}}}
+\newcommand{\toAe}{\xrightarrow{\text{a.e.}}}
+\newcommand{\toMeas}{\xrightarrow{\text{in meas.}}}
+\newcommand{\toWeak}{\xrightarrow{\text{weak}}}
+\newcommand{\toWeakSt}{\xrightarrow{\text{weak}-*}}
+\newcommand{\toDist}{\xrightarrow{\text{in dist.}}}
+\newcommand{\upto}{\nearrow}
+\newcommand{\downto}{\searrow}
+\renewcommand{\to}{\longrightarrow}
+\newcommand{\toAs}{\xrightarrow}
+\newcommand{\toIn}{\xrightarrow}
+\renewcommand{\mapsto}{\longmapsto}
 
 %Math operators otherwise not defined
 \newcommand{\argmax}{\operatorname{arg\,max}}
@@ -240,4 +367,6 @@
 \newcommand{\abs}[1]{\left\lvert #1 \right\rvert}
 \newcommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
 \newcommand{\ceil}[1]{\left\lceil #1 \right\rceil}
+\newcommand{\InnerP}[2]{\left\langle #1, #2\right\rangle}
+
 
