@@ -1,0 +1,77 @@
+name: Release notes + homework + changelog on website
+on:
+  push:
+    tags:
+      - '*.*.*' 
+env:
+  HOMEWORK_PASSWORD: ${{ secrets.HOMEWORK_PASSWORD }}
+jobs:
+  build:
+    name: Release notes + homework + changelog on website
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Create changelog based on git commit history
+        id: generate_changelog
+        uses: scottbrenner/generate-changelog-action@master
+        with: 
+          exclude: chore
+      - name: Compile PDF of LaTeX notes and homeworks
+        id: compile_notes
+        uses: xu-cheng/texlive-action/full@v1
+        with: 
+          run: sh .github/scripts/compile.sh
+      - name: Add latest LaTeX PDFs to main branch folders
+        id: git_add_raw
+        shell: bash
+        run: sh .github/scripts/commit.sh
+      - name: Encrypt homework for publishing
+        id: encrypt_homework
+        shell: bash 
+        run: sh .github/scripts/encrypt.sh
+      - name: Publish updated GitHub pages files
+        id: publish_gh_pages
+        shell: bash 
+        run: sh .github/scripts/publish.sh
+      - name: Upload PDFs to action artifacts
+        id: upload_notes_artifact
+        uses: actions/upload-artifact@master
+        with: 
+          name: notes-and-homework
+          path: gh-pages/assets/files
+          if-no-files-found: error
+      - name: Add changelog to website and repo
+        id: git_add_changelog
+        shell: bash 
+        run: |
+            curr_tag=$(git describe --tags)
+            git config --local user.name "github-action"
+            git checkout main
+            echo "${{ steps.generate_changelog.outputs.changelog }}" >> CHANGELOG.md
+            cp CHANGELOG.md gh-pages
+            git add CHANGELOG.md gh-pages/CHANGELOG.md
+            git commit -m "chore(changelog): Updating changelog for release ${{ github.ref }}"
+            git push
+            git checkout $curr_tag
+      - name: Deploy notes to github pages
+        id: deploy_gh_pages
+        if: success()
+        uses: JamesIves/github-pages-deploy-action@4.1.1
+        with: 
+          branch: website
+          folder: gh-pages
+      - name: Create Release
+        id: release
+        uses: actions/create-release@latest
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          body: |
+            ${{ steps.generate_changelog.outputs.changelog }}
+          draft: false
+          prerelease: false

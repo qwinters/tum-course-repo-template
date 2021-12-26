@@ -1,0 +1,97 @@
+%Generic Package Imports
+\usepackage[a4paper]{geometry}
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{subfiles}
+
+%Standard Math tools
+\usepackage{amssymb, mathtools, enumitem} 
+
+%Fancy Fonts
+% Regular useful fonts
+\usepackage{mathrsfs}
+\usepackage[T1]{fontenc}
+
+%Format chapter, section, and subsection headings better
+\usepackage{titlesec}
+\titleformat{\section}{\normalfont\bfseries\scshape}{\thesection}{1em}{}
+\titleformat{\subsection}{\normalfont\bfseries\itshape}{\thesubsection}{1em}{} % ChkTeX 6
+\titleformat{\chapter}[display]
+ {\bfseries\Large\vspace{5cm}\filleft}
+ {\MakeUppercase{\chaptername}\enspace\thechapter}
+ {2ex}
+ {\titlerule[1pt]\vspace{2ex}\MakeUppercase}%
+\titlespacing*{\chapter}{0pt}{-60pt}{10ex}
+
+%Bibliography setup (with BibLaTeX + Biber)
+\usepackage{hyperref}
+\usepackage[nameinlink]{cleveref}
+\usepackage[style=numeric]{biblatex}
+
+%Graphics Packages and shortcuts
+\usepackage{graphicx}
+\usepackage{import}
+\usepackage{xifthen}
+\usepackage{pdfpages}
+\usepackage{transparent}
+\newcommand{\incfig}[1]{\def\svgwidth{\columnwidth}\import{./lectures/figures/}{#1.pdf_tex}}
+
+%Endnotes
+\usepackage{enotez}
+\setenotez{list-heading={\section{#1}}}
+
+%Break-plain theorem environments
+\usepackage[amsmath, thmmarks, hyperref, amsthm]{ntheorem}
+\usepackage{thmtools}
+\usepackage[framemethod=tikz]{mdframed}
+
+\theoremstyle{break}
+\theoremindent=0.3cm
+\theoremheaderfont{\kern-0.3cm\smallskip\normalfont\bfseries}
+
+\numberwithin{equation}{section}
+\newtheorem{theorem}[equation]{Theorem}
+\newtheorem{lemma}[equation]{Lemma}
+\newtheorem{corollary}[equation]{Corollary}
+\newtheorem{proposition}[equation]{Proposition}
+\newtheorem{conjecture}[equation]{Conjecture}
+
+\renewtheorem*{theorem*}{Theorem}
+\renewtheorem*{proposition*}{Proposition}
+\renewtheorem*{corollary*}{Corollary}
+\renewtheorem*{lemma*}{Lemma}
+
+%AMS Definition Style Environments
+\theorembodyfont{\normalfont\upshape}
+\newtheorem{definition}[equation]{Definition}
+\newtheorem{example}[equation]{Example}
+\newtheorem{algorithm}[equation]{Algorithm}
+\newtheorem{axiom}[equation]{Axiom}
+\newtheorem{property}[equation]{Property}
+
+\renewtheorem*{definition*}{Definition}
+\renewtheorem*{example*}{Example}
+\renewtheorem*{algorithm*}{Algorithm}
+\renewtheorem*{property*}{Property}
+
+%AMS Remark/Notation Style Environments
+\theoremheaderfont{\kern-0.2cm\smallskip\normalfont\scshape}
+\newtheorem{remark}[equation]{Remark}
+\newtheorem{note}[equation]{Note}
+\newtheorem{notation}[equation]{Notation}
+
+%Bolder proof & solutions environment
+\makeatletter
+\renewenvironment{proof}[1][\proofname]
+{\par
+\normalfont\topsep6\p@\@plus6\p@\relax\trivlist % ChkTeX 1
+\item[\hskip\labelsep\scshape#1\@addpunct{.}]
+\mbox{}
+\par
+\nobreak}
+{
+\begin{flushright}
+\ensuremath{\blacksquare}
+\end{flushright}
+\endtrivlist\@endpefalse}
+\makeatother
