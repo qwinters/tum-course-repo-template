@@ -12,10 +12,13 @@ if [[ -d encrypted ]] ; then
 #     cp -r homework*/*.pdf gh-pages/assets/files/homework
 fi 
 
-cp -r lectures/*.pdf gh-pages/assets/files/raw-notes
-cp -r notes/*.pdf gh-pages/assets/files/tex-notes
+if [[ ! -d gh-pages/notes ]] ; then 
+    mkdir -p gh-pages/notes
+fi
 
-git add -f gh-pages/assets/files/**/*.pdf
+cp -r notes/*.pdf gh-pages/notes 
+git add -f gh-pages/notes
+git add -f gh-pages/**/*-enc.pdf 
 git commit -m "chore(gh-pages): Updating published PDFs"
 
 git push
