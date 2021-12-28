@@ -17,16 +17,16 @@ jobs:
         run: |
             git config --local user.name "github-action"
             cp README.md gh-pages/index.md
-            git add gh-pages/index.md
-            git commit -m "chore(gh-pages): Update website homepage"
-            cd lectures
-            cp *.pdf ../gh-pages/assets/files/raw-notes
-            cd ..
+            if [[ ! -d gh-pages/lectures ]] ; then 
+              mkdir -p gh-pages/lectures
+            fi
+            cp lectures/*.pdf gh-pages/lectures
             if [[ $(git status --porcelain | wc -l) -eq "0" ]] ; then 
               echo "Nothing to commit"
             else
-              git add -f gh-pages/assets/files/raw-notes
-              git commit -m "chore(gh-pages): Updating posts"
+              git add gh-pages/index.md
+              git add -f gh-pages/lectures
+              git commit -m "chore(gh-pages): Updating website"
               git push
             fi 
       - name: Deploy notes to github pages
