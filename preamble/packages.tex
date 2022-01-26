@@ -65,15 +65,6 @@
 
 % Graphics Packages and shortcuts
 \usepackage{graphicx}
-\makeatletter
-\let\org@subfile\subfile
-\renewcommand*{\subfile}[1]{%
-  \filename@parse{#1}% LaTeX's file name parser
-  \expandafter
-  \graphicspath\expandafter{\expandafter{\filename@area}}%
-  \org@subfile{#1}%
-}
-\makeatother
 \usepackage{import}
 \usepackage{xifthen}
 \usepackage{pdfpages}
@@ -101,10 +92,10 @@
 \newenvironment{proof}[1][\proofname]
 {\par
 \normalfont\topsep6\p@\@plus6\p@\relax\trivlist % ChkTeX 1
-\item[\hskip\labelsep\it\bfseries\sffamily#1]
+\item[\hskip\labelsep\it\bfseries\sffamily#1\/]
 \mbox{}
 \par\medskip
-\nobreak}
+\nobreak\/}
 {\vspace*{1em}
 \begin{flushright}
 \ensuremath{\blacksquare}
@@ -125,13 +116,13 @@
 \newtheorem{sectheorem}{~}
 \renewtheorem*{sectheorem*}{~}
 \newenvironment{Theorem}[1]%
-  {\section[#1]{THEOREM: #1}\label{Theorem: #1}\begin{sectheorem*}\vspace*{-1em}}%
+  {\section[#1]{THEOREM:\@#1}\label{Theorem: #1}\begin{sectheorem*}\vspace*{-1em}}%
   {\end{sectheorem*}}
   
 \newtheorem{seclemma}{~}
 \renewtheorem*{seclemma*}{~}
 \newenvironment{Lemma}[1]%
-  {\section[#1]{LEMMA: #1}\label{Lemma: #1}\begin{seclemma*}\vspace*{-1em}}%
+  {\section[#1]{LEMMA:\@#1}\label{Lemma: #1}\begin{seclemma*}\vspace*{-1em}}%
   {\end{seclemma*}}
 
 \newtheorem{secitalic}{~}
@@ -148,13 +139,13 @@
 \newtheorem{secdefinition}{~}
 \renewtheorem*{secdefinition*}{~}
 \newenvironment{Definition}[1]%
-  {\section[#1]{DEFINITION: #1}\label{Definition: #1}\begin{secdefinition*}\vspace*{-1em}}%
+  {\section[#1]{DEFINITION:\@#1}\label{Definition: #1}\begin{secdefinition*}\vspace*{-1em}}%
   {\end{secdefinition*}}
 
 \newtheorem{secexample}{~}
 \renewtheorem*{secexample*}{~}
 \newenvironment{Example}[1]%
-  {\section[#1]{EXAMPLE: #1}\label{Example: #1}\begin{secexample*}\vspace*{-1em}}%
+  {\section[#1]{EXAMPLE:\@#1}\label{Example: #1}\begin{secexample*}\vspace*{-1em}}%
   {\end{secexample*}}
 
 \newtheorem{secproof}{~}
