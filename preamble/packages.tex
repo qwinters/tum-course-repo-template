@@ -19,19 +19,12 @@
 \usepackage{mathrsfs}
 \usepackage[T1]{fontenc}
 
-% Use the bakersville font
-\usepackage{baskervillef}
-\usepackage[varqu,varl,var0]{inconsolata}
-\usepackage[scale=.95,type1]{cabin}
-\usepackage[baskerville,vvarbb]{newtxmath}
-\usepackage[cal=boondoxo]{mathalfa}
-
 % Line and paragraph spacing
 \renewcommand{\baselinestretch}{1.08}
 
 % Format chapter, section, and subsection headings better
 \usepackage[sf]{titlesec}
-\titleformat{\section}{\hspace*{-3.5em}\normalfont\large\sffamily\bfseries}{\thesection}{1em}{}
+\titleformat{\section}{\hspace*{-2.9em}\normalfont\large\sffamily\bfseries}{\thesection}{1em}{}
 \titleformat{\subsection}{\normalfont\sffamily\bfseries}{\thesubsection}{1em}{} % ChkTeX 6
 \titleformat{\chapter}[display]
  {\sffamily\bfseries\Large\vspace{5cm}\filleft}
@@ -83,46 +76,43 @@
     \centering}
   {\end{figure}}
 
-% Endnotes
-\usepackage{enotez}
-\setenotez{list-heading={\section{#1}}}
+% Break-plain theorem environments
+\usepackage[amsmath, thmmarks, hyperref, amsthm, thref]{ntheorem}
+\usepackage{thmtools}
+\usepackage[framemethod=tikz]{mdframed}
 
 % Bolder proof & solutions environment
 \makeatletter
 \newenvironment{proof}[1][\proofname]
 {\par
 \normalfont\topsep6\p@\@plus6\p@\relax\trivlist % ChkTeX 1
-\item[\hskip\labelsep\it\bfseries\sffamily#1\/]
+\item[\hskip\labelsep\it\bfseries\sffamily#1]
 \mbox{}
 \par\medskip
 \nobreak\/}
-{\vspace*{1em}
+{
 \begin{flushright}
-\ensuremath{\blacksquare}
+  $\blacksquare$
 \end{flushright}
 \endtrivlist\@endpefalse}
 \makeatother
-
-
-% Break-plain theorem environments
-\usepackage[amsmath, thmmarks, hyperref, amsthm]{ntheorem}
-\usepackage{thmtools}
-\usepackage[framemethod=tikz]{mdframed}
 
 \theoremstyle{break}
 \theoremindent=0.3cm
 \theoremheaderfont{\kern-0.3cm\smallskip\normalfont\bfseries}
 
 \newtheorem{sectheorem}{~}
+\crefname{sectheorem}{theorem}{theorems}
+\Crefname{sectheorem}{Theorem}{Theorems}
 \renewtheorem*{sectheorem*}{~}
 \newenvironment{Theorem}[1]%
-  {\section[#1]{THEOREM:\@#1}\label{Theorem: #1}\begin{sectheorem*}\vspace*{-1em}}%
+  {\section[#1]{THEOREM:\@ #1}\begin{sectheorem*}\label{Theorem: #1}\vspace*{-1em}}%
   {\end{sectheorem*}}
-  
+
 \newtheorem{seclemma}{~}
 \renewtheorem*{seclemma*}{~}
 \newenvironment{Lemma}[1]%
-  {\section[#1]{LEMMA:\@#1}\label{Lemma: #1}\begin{seclemma*}\vspace*{-1em}}%
+  {\section[#1]{LEMMA:\@ #1}\label{Lemma: #1}\begin{seclemma*}\vspace*{-1em}}%
   {\end{seclemma*}}
 
 \newtheorem{secitalic}{~}
@@ -130,6 +120,7 @@
 \newenvironment{SecItalic}[1]%
   {\section{#1}\label{Section: #1}\begin{secitalic*}\vspace*{-1em}}%
   {\end{secitalic*}}
+\newenvironment{SecItalics}[1]{\begin{SecItalic}{#1}}{\end{SecItalic}}
 
 \newtheorem{lemma}[equation]{Lemma}
 \newtheorem{corollary}[equation]{Corollary}
@@ -139,20 +130,20 @@
 \newtheorem{secdefinition}{~}
 \renewtheorem*{secdefinition*}{~}
 \newenvironment{Definition}[1]%
-  {\section[#1]{DEFINITION:\@#1}\label{Definition: #1}\begin{secdefinition*}\vspace*{-1em}}%
+  {\section[#1]{DEFINITION:\@ #1}\label{Definition: #1}\begin{secdefinition*}\vspace*{-1em}}%
   {\end{secdefinition*}}
 
 \newtheorem{secexample}{~}
 \renewtheorem*{secexample*}{~}
 \newenvironment{Example}[1]%
-  {\section[#1]{EXAMPLE:\@#1}\label{Example: #1}\begin{secexample*}\vspace*{-1em}}%
+  {\section[#1]{EXAMPLE:\@ #1}\label{Example: #1}\begin{secexample*}\vspace*{-1em}}%
   {\end{secexample*}}
 
 \newtheorem{secproof}{~}
 \renewtheorem*{secproof}{~}
 \newenvironment{Proof}[1]%
-  {\section[#1]{#1}\label{Proof: #1}\begin{proof}[~]\vspace*{-2em}}
-  {\end{proof}}
+  {\section[#1]{PROOF: #1}\label{Proof: #1}\begin{secproof*}}
+    {\begin{flushright}$\blacksquare$\end{flushright}\end{secproof*}}
 
 \newtheorem{definition}[equation]{Definition}
 \newtheorem{example}[equation]{Example}
@@ -160,5 +151,18 @@
 
 \theoremheaderfont{\hspace*{-1em}\smallskip\normalfont\bfseries\sffamily}
 \newtheorem{remark}[equation]{Remark}
-\newtheorem{exercise}[equation]{Exercise}
+\newtheorem{exercise}{Exercise}[chapter]
 
+% Theorem environemnts for banishing portions of text to end notes
+\newtheorem{olddef}{Definition}
+\renewtheorem*{olddef}{Definition}
+\newtheorem{oldthm}{Theorem}
+\renewtheorem*{oldthm}{Theorem}
+
+% Endnotes
+\usepackage{enotez}
+\setenotez{
+  list-heading={\section{#1}},
+  list-name={Further Remarks},
+  backref=true,
+}

@@ -191,29 +191,28 @@
 \renewcommand{\Pr}{\mathbb{P}}
 \newcommand{\Ex}{\mathbb{E}}
 \newcommand{\given}{\mid}
-\newcommand{\Ind}[1]{\mathbf{1}_{#1}}
+\newcommand{\Ind}{\mathbf{1}}
+\newcommand{\IndSet}[1]{\mathbf{1}_{#1}}
 \newcommand{\IndCond}[1]{\mathbf{1}_{\left\{#1\right\}}}
 \newcommand{\Var}{\operatorname{Var}}
 \newcommand{\Corr}{\operatorname{Corr}}
 \newcommand{\Cov}{\operatorname{Cov}}
 
 % Geometry Macros
-\newcommand{\Aff}{\operatorname{Aff}}
-\newcommand{\Lin}{\operatorname{Lin}}
-\newcommand{\Span}{\operatorname{Span}}
-\newcommand{\Rank}{\operatorname{Rank}}
-\newcommand{\Null}{\operatorname{Null}}
-\newcommand{\Range}{\operatorname{Range}}
-\newcommand{\Area}{\operatorname{Area}}
+\newcommand{\aff}{\operatorname{aff.\,span}}
+\newcommand{\lin}{\operatorname{lin.\,span}}
+\newcommand{\span}{\operatorname{span}}
+\newcommand{\rank}{\operatorname{rank}}
+\newcommand{\null}{\operatorname{null}}
+\newcommand{\range}{\operatorname{range}}
+\newcommand{\area}{\operatorname{area}}
 \newcommand{\conv}{\operatorname{conv}}
 \newcommand{\diam}{\operatorname{diam}}
 \newcommand{\dist}{\operatorname{dist}}
-\newcommand{\Vol}{\operatorname{Vol}}
-\newcommand{\Proj}{\operatorname{Proj}}
-\newcommand{\Perim}{\operatorname{Perim}}
+\newcommand{\vol}{\operatorname{vol}}
+\newcommand{\proj}{\operatorname{proj}}
+\newcommand{\perim}{\operatorname{perim}}
 \newcommand{\polar}{^{\circ}}
-\newcommand{\Frob}{\operatorname{Frob}}
-\newcommand{\HS}{\operatorname{HS}}
 \newcommand{\relintr}{\operatorname{rel.\,int.}}
 \newcommand{\relbd}{\operatorname{rel.\,bd.}}
 \newcommand{\relcl}{\operatorname{rel.\,cl.}}
@@ -230,6 +229,7 @@
 % Linear and Functional Analysis Macros
 \newcommand{\Id}{\operatorname{Id}}
 \newcommand{\TV}{\operatorname{TV}}
+\newcommand{\HS}{\operatorname{HS}}
 \newcommand{\eigvals}{\operatorname{Eig.\,Vals.}}
 \newcommand{\eigvecs}{\operatorname{Eig.\,Vecs.}}
 \newcommand{\eigfuncs}{\operatorname{Eig.\,Funcs.}}
@@ -244,6 +244,7 @@
 \newcommand{\dual}{^{\mathsf{*}}}
 \newcommand{\oldstar}{\star}
 \renewcommand{\star}{^{\mathsf{*}}}
+\newcommand{\ststar}{^{\mathsf{**}}}
 \newcommand{\inverse}{^{-1}}
 \newcommand{\psinverse}{^{\dagger}}
 
@@ -259,7 +260,6 @@
 \newcommand*{\dr}{\dd r} % ChkTeX 1
 \newcommand*{\df}{\dd f} % ChkTeX 1
 \newcommand*{\dg}{\dd g} % ChkTeX 1
-\newcommand*{\dh}{\dd h} % ChkTeX 1
 \newcommand*{\dF}{\dd F} % ChkTeX 1
 \newcommand*{\dG}{\dd G} % ChkTeX 1
 \newcommand*{\dH}{\dd H} % ChkTeX 1
@@ -268,7 +268,7 @@
 \newcommand*{\dphi}{\dd \phi} % ChkTeX 1
 \newcommand*{\dpsi}{\dd \psi} % ChkTeX 1
 \newcommand*{\dmu}{\dd \mu} % ChkTeX 1
-\newcommand*{\dmu}{\dd \nu} % ChkTeX 1
+\newcommand*{\dnu}{\dd \nu} % ChkTeX 1
 \newcommand*{\dsigma}{\dd \sigma} % ChkTeX 1
 \newcommand*{\dlambda}{\dd \lambda} % ChkTeX 1
 \newcommand*{\mudw}{\mathop{}\!\mu(\mathrm{d}\omega)}
@@ -323,6 +323,7 @@
 \newcommand{\toMeas}{\xrightarrow{\text{in meas.}}}
 \newcommand{\toWeak}{\xrightarrow{\text{weak}}}
 \newcommand{\toWeakSt}{\xrightarrow{\text{weak}-*}}
+\newcommand{\toWeakStar}{\xrightarrow{\text{weak}-*}}
 \newcommand{\toDist}{\xrightarrow{\text{in dist.}}}
 \newcommand{\upto}{\nearrow}
 \newcommand{\downto}{\searrow}
@@ -353,6 +354,12 @@
 \newcommand{\caseotherwise}{& \text{ otherwise}}
 \newcommand{\SPC}{\mathop{}\!}
 
+% Macros for optimal transport
+\newcommand{\Cost}{\operatorname{Cost}}
+\newcommand{\abscon}{^{\mathrm{ac}}}
+\newcommand{\sing}{^{\mathrm{sing}}}
+\newcommand{\opt}{_{\mathrm{opt}}}
+
 %Replace non-wide with wide when available
 \renewcommand{\bar}[1]{\overline{#1}}
 \renewcommand{\hat}[1]{\widehat{#1}}
@@ -369,4 +376,28 @@
 \newcommand{\ceil}[1]{\left\lceil #1 \right\rceil}
 \newcommand{\InnerP}[2]{\left\langle #1, #2\right\rangle}
 
+% Defines \textsubstack which runs substack and applies \text to each portion
+\ExplSyntaxOn
+\NewDocumentCommand{\textsubstack}{m}
+ {
+  \seq_set_split:Nnn \l_omer_textsubstack_input_seq { \\ } { #1 }
+  \seq_set_map:NNn \l_omer_textsubstack_output_seq
+    \l_omer_textsubstack_input_seq
+    { \exp_not:n { \text {##1} } }
+  \substack{ \seq_use:Nn \l_omer_textsubstack_output_seq { \\ } }
+ }
+\seq_new:N \l_omer_textsubstack_input_seq
+\seq_new:N \l_omer_textsubstack_output_seq
+\ExplSyntaxOff
 
+\let\oldtext=\text % ChkTex 1 ChkTeX 14
+\renewcommand{\text}{\textsubstack}
+\newcommand{\txt}{\textsubstack}
+
+% Commands for justified environments
+\newcommand{\lej}[1]{\overset{\left(\text{#1}\right)}{\le}}
+\newcommand{\gej}[1]{\overset{\left(\text{#1}\right)}{\ge}}
+\newcommand{\eqj}[1]{\overset{\left(\text{#1}\right)}{=}}
+\newcommand{\nej}[1]{\overset{\left(\text{#1}\right)}{\ne}}
+\newcommand{\toj}[1]{\xrightarrow{\left(\text{#1}\right)}}
+\newcommand{\tooj}[1]{\xRightarrow{\left(\text{#1}\right)}}
