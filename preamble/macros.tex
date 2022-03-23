@@ -390,14 +390,12 @@
 \seq_new:N \l_omer_textsubstack_output_seq
 \ExplSyntaxOff
 
-\let\oldtext=\text % ChkTex 1 ChkTeX 14
-\renewcommand{\text}{\textsubstack}
 \newcommand{\txt}{\textsubstack}
 
 % Commands for justified environments
-\newcommand{\lej}[1]{\overset{\left(\text{#1}\right)}{\le}}
-\newcommand{\gej}[1]{\overset{\left(\text{#1}\right)}{\ge}}
-\newcommand{\eqj}[1]{\overset{\left(\text{#1}\right)}{=}}
-\newcommand{\nej}[1]{\overset{\left(\text{#1}\right)}{\ne}}
-\newcommand{\toj}[1]{\xrightarrow{\left(\text{#1}\right)}}
-\newcommand{\tooj}[1]{\xRightarrow{\left(\text{#1}\right)}}
+\newcommand{\lej}[1]{\overset{\left(\txt{#1}\right)}{\le}}
+\newcommand{\gej}[1]{\overset{\left(\txt{#1}\right)}{\ge}}
+\newcommand{\eqj}[1]{\overset{\left(\txt{#1}\right)}{=}}
+\newcommand{\nej}[1]{\overset{\left(\txt{#1}\right)}{\ne}}
+\newcommand{\toj}[1]{\xrightarrow{\left(\txt{#1}\right)}}
+\newcommand{\tooj}[1]{\xRightarrow{\left(\txt{#1}\right)}}
