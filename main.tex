@@ -1,0 +1,34 @@
+%!TeX document-id = {326d2e8f-0c72-44fb-937b-8c8f6b722c8e}
+\documentclass[a4paper, oneside, 12pt]{book}
+
+\input{preamble/packages.tex}
+\input{preamble/macros.tex}
+\input{preamble/course-info.tex}
+
+\addbibresource{bibliography.bib}
+
+\begin{document}
+  \maketitle
+  \newpage
+
+  \frontmatter
+  \tableofcontents
+
+  \subfile{frontmatter/preface.tex}
+
+  \mainmatter
+  \part{Course Notes}
+  \subfile{notes.tex}
+
+  \part{Exercise Sheets}
+  \subfile{ex-sheets.tex}
+
+  \part{Exercise Solutions}
+  \subfile{ex-solns.tex}
+
+  \appendix
+  \subfile{appendix/notation.tex}
+  \subfile{appendix/background.tex}
+  \subfile{appendix/references.tex}
+
+\end{document}
