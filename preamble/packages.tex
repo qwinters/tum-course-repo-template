@@ -81,22 +81,6 @@
 \usepackage{thmtools}
 \usepackage[framemethod=tikz]{mdframed}
 
-% Bolder proof & solutions environment
-\makeatletter
-\newenvironment{proof}[1][\proofname]
-{\par
-\normalfont\topsep6\p@\@plus6\p@\relax\trivlist % ChkTeX 1
-\item[\hskip\labelsep\it\bfseries\sffamily#1]
-\mbox{}
-\par\medskip
-\nobreak\/}
-{
-\begin{flushright}
-  $\blacksquare$
-\end{flushright}
-\endtrivlist\@endpefalse}
-\makeatother
-
 \theoremstyle{break}
 \theoremindent=0.3cm
 \theoremheaderfont{\kern-0.3cm\smallskip\normalfont\bfseries}
@@ -129,21 +113,15 @@
 \theorembodyfont{\normalfont\upshape}
 \newtheorem{secdefinition}{~}
 \renewtheorem*{secdefinition*}{~}
-\newenvironment{Definition}[1]%
-  {\section[#1]{DEFINITION:\@ #1}\label{Definition: #1}\begin{secdefinition*}\vspace*{-1em}}%
-  {\end{secdefinition*}}
+\newenvironment{Definition}[1]{\section[#1]{DEFINITION:\@ #1}\begin{secdefinition*}\vspace*{-1em}}{\end{secdefinition*}}
 
 \newtheorem{secexample}{~}
 \renewtheorem*{secexample*}{~}
-\newenvironment{Example}[1]%
-  {\section[#1]{EXAMPLE:\@ #1}\label{Example: #1}\begin{secexample*}\vspace*{-1em}}%
-  {\end{secexample*}}
+\newenvironment{Example}[1]{\section[#1]{EXAMPLE:\@ #1}\begin{secexample*}\vspace*{-1em}}{\end{secexample*}}
 
 \newtheorem{secproof}{~}
 \renewtheorem*{secproof}{~}
-\newenvironment{Proof}[1]%
-  {\section[#1]{PROOF: #1}\label{Proof: #1}\begin{secproof*}}
-    {\begin{flushright}$\blacksquare$\end{flushright}\end{secproof*}}
+\newenvironment{Proof}[1]{\section[#1]{PROOF: #1}\begin{secproof*}}{\begin{flushright}$\blacksquare$\end{flushright}\end{secproof*}}
 
 \newtheorem{definition}[equation]{Definition}
 \newtheorem{example}[equation]{Example}
@@ -151,13 +129,70 @@
 
 \theoremheaderfont{\hspace*{-1em}\smallskip\normalfont\bfseries\sffamily}
 \newtheorem{remark}[equation]{Remark}
-\newtheorem{exercise}{Exercise}[chapter]
 
 % Theorem environemnts for banishing portions of text to end notes
 \newtheorem{olddef}{Definition}
 \renewtheorem*{olddef}{Definition}
 \newtheorem{oldthm}{Theorem}
 \renewtheorem*{oldthm}{Theorem}
+
+% Hidable outline environment for proofs. 
+\usepackage{environ}
+
+\newif\ifshowoutlines
+\showoutlinesfalse
+\NewEnviron{outline}[1][Outline of the proof]{
+  \ifshowoutlines%
+  \subsection*{#1}%
+  \begin{itemize}%
+    \BODY%
+  \end{itemize}%
+  \begin{flushright}$\blacksquare$\end{flushright}%
+  \fi 
+}
+
+% TODO: Figure out how to override default proof environment nicely
+\newif\ifshowproofs
+\showproofsfalse
+\NewEnviron{prf}[1][\proofname]{
+  \ifshowproofs%
+  \subsection*{#1}%
+  \BODY%
+  \begin{flushright}$\blacksquare$\end{flushright}%
+  \fi 
+}
+
+\newif\ifshowhints
+\showhintsfalse
+\NewEnviron{hints}{
+  \ifshowhints%
+  \begin{itemize}[label={\it Hint}]%
+    \BODY%
+  \end{itemize}%
+  \fi%
+}
+
+\newif\ifshowexercises
+\showexercisesfalse
+\NewEnviron{exercise}[1]{
+  \ifshowexercises%
+  \subsection*{Exercise #1}%
+  \BODY%
+  \fi% 
+}
+
+\newif\ifshowsolutions
+\showsolutionsfalse
+\NewEnviron{solution}[1][Solution]{
+  \ifshowsolutions%
+  \subsection*{#1}%
+  \BODY%
+  \begin{flushright}$\blacksquare$\end{flushright}%
+  \fi%
+}
+
+% Exercise sheet titles
+\newcommand{\ExSheet}[1]{\chapter*{Exercise Sheet #1}\addcontentsline{toc}{chapter}{Exercise Sheet #1}}
 
 % Endnotes
 \usepackage{enotez}
