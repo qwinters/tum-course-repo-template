@@ -1,0 +1,55 @@
+name: Automatically assign issues to their creators
+on:
+  issues:
+    types: [opened]
+jobs:
+  run:
+    name: Automatically assign issues to their creators
+    runs-on: ubuntu-latest
+    steps:
+      - name: Automatically assign issues to the creators
+        id: assign_issues
+        uses: wow-actions/auto-assign@v1
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          CONFIG_FILE: .github/configs/auto-assign-config.yml
+      - name: Get project information for triage
+        id: triage_find_project
+        shell: bash
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN_PROJECT_ACCESS }}
+          USER: qwinters
+          PROJECT_NUMBER: 18 
+        run: |
+          gh api graphql -f query='
+           query($user: String!, $number: Int!) {
+              organization(login: $org){
+                projectNext(number: $number) {
+                  id
+                  fields(first:20) {
+                    nodes {
+                      id
+                      name
+                      settings
+                    }
+                  }
+                }
+              }
+            }' -f user=$USER -F number=$PROJECT_NUMBER > project_data.json
+          echo 'PROJECT_ID='$(jq '.data.user.projectNext.id' project_data.json) >> $GITHUB_ENV
+      - name: Add new issue to the proper project 
+        id: triage_issue 
+        shell: bash
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN_PROJECT_ACCESS }}
+          ISSUE_ID: ${{ github.event.issue.node_id }}
+        run: |
+           item_id="$( gh api graphql -f query='
+            mutation($project:ID!, $issue:ID!) {
+              addProjectNextItem(input: {projectId: $project, contentId: $issue}) {
+                projectNextItem {
+                  id
+                }
+              }
+            }' -f project=$PROJECT_ID -f issue=$ISSUE_ID --jq '.data.addProjectNextItem.projectNextItem.id')"
+
