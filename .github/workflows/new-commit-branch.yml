@@ -1,0 +1,14 @@
+name: Update lecture notes on website
+on:
+  push:
+    branches-ignore: [main]
+jobs:
+  build:
+    name: Update lecture notes on website
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        id: github_checkout
+        uses: actions/checkout@v2
+      - name: Lint LaTeX code using chktex 
+        uses: j2kun/chktex-action@main
