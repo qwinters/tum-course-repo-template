@@ -1,0 +1,22 @@
+title: qwinters
+description: Math => Software => Math; with a little bit of Magic between
+
+author_name: Quinn Winters
+author_email: contact-me@qwinters.me
+author_gravatar: a8815f9170fc450895e3d9ed9372e28c  
+
+url: https://qwinters.me
+baseurl:  
+permalink: /posts/:title
+mathjax: true 
+
+highligher: rouge
+markdown: kramdown
+kramdown: 
+  input: GFM
+sass:
+  style: :compressed
+
+plugins: 
+  - jekyll-sitemap
+
