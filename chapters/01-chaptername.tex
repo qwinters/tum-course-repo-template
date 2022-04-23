@@ -1,0 +1,30 @@
+\documentclass[../notes.tex]{subfile}
+
+\begin{document}
+\begin{refsection}
+
+\Chapter{Example chapter}
+
+Here is an example chapter that might have various different aspects of mathematics in it. For example, we might have a theorem that is really
+important and deseriving of its own section like this:
+
+\begin{Theorem}{Example theorem}
+  The fundamental theorem of calculus states that if $f:[a,b]\to \mathbb{R}$ is an integrable function, and you give the function $F$ by
+  \[
+  F(x) = \int_{a}^x f(t)\;\dd t
+  \], 
+  then $\frac{\dd}{\dd x} F(x) = f(x) - f(a)$. 
+\end{Theorem}
+\begin{outline}
+  \item Define the function $F$ as you would like it to be. 
+  \item For each $x$ look at a neighborhood around $x$ and calculate the derivative using mean value theorem. 
+  \item Shrink the neighborhood until you get the result.
+\end{outline}
+\begin{prf}[Proof of the Fundamental Theorem of Calculus]
+  Let $F(x)$ be the function as desired and fix $x \in (a, b]$. Then \ldots 
+\end{prf}
+
+For more on this proof, see the Wikipedia page \cite{ftc}.
+
+\end{refsection}
+\end{document}
