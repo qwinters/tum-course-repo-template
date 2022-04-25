@@ -1,11 +1,11 @@
-#!/usr/bin/env sh 
+#!/usr/bin/env zsh 
 
 REPO_DIR="$(git rev-parse --show-toplevel)"
 
-if [[ -z "$FILE_PREFIX" ]] ; then 
+if [[ -v FILE_PREFIX ]] ; then 
   files_to_move=(notes.tex ex-sheets.tex ex-solns.tex outline.tex)
   for file in $files_to_move ; do 
-    if [[ -f "$REPO_DIR/$file" ]] ; then 
+    if [ -f "$REPO_DIR/$file" ] ; then 
       mv "$REPO_DIR/$file" "$REPO_DIR/$FILE_PREFIX-$file"
     fi
   done
