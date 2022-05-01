@@ -1,14 +1,13 @@
 \newcommand{\courseUni}{TU Munich}
-\newcommand{\courseNumber}{MA 0000}
-\newcommand{\courseTitle}{Mathematics course}
-\newcommand{\courseSubtitle}{Template repo}
-\newcommand{\professor}{Prof. XXXXXXXX}
-\newcommand{\scribe}{Quinn Winters}
+\newcommand{\courseNumber}{MAXXXX}
+\newcommand{\courseTitle}{Course Title}
+\newcommand{\courseSubtitle}{}
+\newcommand{\professor}{Professor Name}
+\newcommand{\scribe}{Scribe Name}
 
 \title{
-  {\sc \large \courseUni - \courseNumber} \\
-  {\sc \courseTitle} \\
-  {\courseSubtitle}
+  {\bfseries\large{\courseUni --- \courseNumber}} \\
+  {\bfseries{\courseTitle}}
 }
 \author{
   Professor: \professor \\
@@ -27,9 +26,9 @@
 
 \usepackage{etoolbox}
 \ifdef{\leftheading}%
-  {\lhead{{\small\it \leftheading}}}%
-  {\lhead{{\small\it \courseNumber - \courseTitle}}}
-\rhead{{\small\it \rightmark}}
+  {\lhead{{\small\sffamily \leftheading}}}%
+  {\lhead{{\small\sffamily \courseNumber - \courseTitle}}}
+\rhead{{\small\sffamily \rightmark}}
 \cfoot{\thepage}
 
 \geometry{
