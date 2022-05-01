@@ -4,6 +4,8 @@
 \usepackage[utf8]{inputenc}
 \usepackage{subfiles}
 
+
+
 % Standard Math tools
 \usepackage{amssymb, mathtools, enumitem} 
 
@@ -18,6 +20,8 @@
 % Regular useful fonts
 \usepackage{mathrsfs}
 \usepackage[T1]{fontenc}
+\usepackage{libertine}
+\usepackage{libertinust1math}
 
 % Line and paragraph spacing
 \renewcommand{\baselinestretch}{1.08}
@@ -32,6 +36,11 @@
  {2ex}
  {\titlerule[1pt]\vspace{2ex}\MakeUppercase}%
 \titlespacing*{\chapter}{0pt}{-60pt}{10ex}
+\titleformat{\part}[display]
+  {\sffamily\bfseries\LARGE\vspace{5cm}\filleft}
+  {\MakeUppercase{\partname}\enspace\thepart}
+  {2ex}
+  {\titlerule[2pt]\vspace{2ex}\MakeUppercase}
 
 \newcommand{\Chapter}[1]{\chapter{#1}\label{Chapter: #1}}
 \newcommand{\Section}[1]{\section{#1}\label{Section: #1}}
