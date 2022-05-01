@@ -1,4 +1,4 @@
-name: Update lecture notes on website
+name: Update PDFs in GitHub branch (not main) 
 on:
   push:
     branches-ignore: [main]
@@ -11,4 +11,15 @@ jobs:
         id: github_checkout
         uses: actions/checkout@v2
       - name: Lint LaTeX code using chktex 
+        id: lint_latex
         uses: j2kun/chktex-action@main
+      - name: Compile LaTeX documents from source
+        id: compile_latex
+        uses: xu-cheng/texlive-action/full@v1
+        with: 
+          run: sh .github/scripts/compile.sh
+      - name: Commit built PDFs to the main branch 
+        id: commit_latex
+        shell: bash 
+        run: sh .github/scripts/commit.sh
+

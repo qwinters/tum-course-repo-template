@@ -1,4 +1,4 @@
-#!/usr/bin/env sh 
+#!/bin/bash 
 
 REPO_DIR=$(git rev-parse --show-toplevel)
 
@@ -8,7 +8,7 @@ if [[ -z $HOMEWORK_PASSWORD ]] ; then
     qpdf --encrypt $HOMEWORK_PASSWORD $HOMEWORK_PASSWORD 256 -- $homework $enc_file
     cp "$REPO_DIR/.build/$enc_file" "$REPO_DIR/website/$enc_file"
   done
-else if [[ -z $PUBLISH_UNENCRYPTED_HOMEWORK ]] ; then
+elif [[ -v PUBLISH_UNENCRYPTED_HOMEWORK ]] ; then
   cp "$REPO_DIR/.build/*-solns.pdf" "$REPO_DIR/website/"
 fi 
 
@@ -20,7 +20,15 @@ cp $REPO_DIR/README.md $REPO_DIR/website/index.md
 git add -f website/index.md
 
 if [[ ! -z $(git status --porcelain) ]] ; then 
-  git config --global user.name "GitHub Action" 
+  GIT_USERNAME=$(git config user.name)
+  GIT_EMAIL=$(git config user.email)
+
+  git config user.name "GitHub Action" 
+  git config user.email ""
   git commit -m "chore(website): Add updates to website"
   git push
+
+  git config user.name $GIT_USERNAME
+  git config user.email $GIT_EMAIL
 fi 
+

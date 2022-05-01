@@ -1,4 +1,4 @@
-name: Update lecture notes on website
+name: Update Issues, PDFs, and website in GitHub. 
 on:
   push:
     branches: [main]
@@ -15,18 +15,14 @@ jobs:
         uses: alstr/todo-to-issue-action@v4.5
         with:
           AUTO_ASSIGN: true
-      - name: Lint LaTeX code using chktex 
-        id: lint_latex
-        uses: j2kun/chktex-action@main
-      - name: Compile LaTeX documents from source
+      - name: Compile all PDF files
         id: compile_latex
         uses: xu-cheng/texlive-action/full@v1
-        with: 
+        with:
           run: sh .github/scripts/compile.sh
-      - name: Encrypt / prepare PDFs and homepage for website
-        id: prepare_website
-        shell: bash 
-        runs: sh .github/scripts/update-website.sh
+      - name: Commit PDF files 
+        id: commit_latex
+        run: sh .github/scripts/commit.sh
       - name: Deploy updates to GitHub pages 
         id: deploy_gh_pages
         if: success()
